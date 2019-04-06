@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>{{day.toLocaleUpperCase()}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <h3>{{"Select the tasks for "+ day.toLocaleLowerCase()}}</h3>
+    <ion-grid>
+      <ion-row justify-content-center>
+        <ion-col size="12" size-lg="5" size-md="5">
+          <h4>Un-Assigned Tasks</h4>
+          <ion-item *ngFor="let task of tasks" color="light" margin-bottom>
+            <ion-label>{{task}}</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" size-lg="5" size-md="5" offset="0" offset-lg="1" offset-md="1">
+          <h4>Assigned Tasks</h4>
+          <ion-item *ngFor="let task of tasks" color="light" margin-bottom>
+            <ion-label>{{task}}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-content>

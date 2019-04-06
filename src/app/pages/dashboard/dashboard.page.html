@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>Dona</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col size="6" size-md="4" size-lg="3" *ngFor="let card of cards" >
+        <ion-item color="{{card.color}}" (click)="gotoDay(card.day)" >
+          <ion-label>
+            {{card.day}}
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

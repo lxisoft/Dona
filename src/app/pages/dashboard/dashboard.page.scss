@@ -1,0 +1,13 @@
+ion-label {
+    width: 100%;
+}
+
+ion-label:after {
+  content: "";
+  display: block;
+  padding-bottom: 75%;
+}
+
+ion-col {
+    opacity: .75;
+}
