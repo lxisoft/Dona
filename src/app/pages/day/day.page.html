@@ -6,7 +6,21 @@
 
 <ion-content padding>
     <h3>{{"Select the tasks for "+ day.toLocaleLowerCase()}}</h3>
-    <ion-grid>
+    <ion-slides #slides pager="true" [options]="slideOpts">
+      <ion-slide *ngFor="let role of roles" >
+        <ion-card class="role-card">
+          <ion-card-title>
+            <h1>{{role}}</h1>
+          </ion-card-title>
+          <ion-card-content>
+            Selected {{role}}
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+    <ion-button (click)="slidePrev()" float-left><ion-icon name="arrow-round-back"></ion-icon></ion-button>
+    <ion-button (click)="slideNext()" float-right><ion-icon name="arrow-round-forward"></ion-icon></ion-button>
+    <ion-grid margin-top>
       <ion-row justify-content-center>
         <ion-col size="12" size-lg="5" size-md="5">
           <h4>Un-Assigned Tasks</h4>
