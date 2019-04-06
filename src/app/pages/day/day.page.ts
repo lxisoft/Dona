@@ -21,11 +21,23 @@ export class DayPage implements OnInit {
    this.day = this.route.snapshot.paramMap.get('day');
   }
 
-  slideNext() {
-    this.slides.slideNext();
+  slidePrev() {
+    this.slides.getActiveIndex().then((num) => {
+      if (num === 0 ) {
+        this.slides.slideTo(this.roles.length - 1);
+        return;
+      }
+    });
+    this.slides.slidePrev();
   }
 
-  slidePrev() {
-    this.slides.slidePrev();
+  slideNext() {
+    this.slides.getActiveIndex().then((num) => {
+      if (num === this.roles.length - 1) {
+        this.slides.slideTo(0);
+        return;
+      }
+    });
+    this.slides.slideNext();
   }
 }
