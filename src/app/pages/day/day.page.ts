@@ -1,6 +1,6 @@
-import { NavParams, IonSlides } from '@ionic/angular';
+import { IonSlides } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Route, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-day',

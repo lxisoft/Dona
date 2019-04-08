@@ -6,12 +6,36 @@
 
 <ion-content>
   <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <h5>
+            From: {{from.toLocaleDateString()}}
+          </h5>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <h5>
+            To: {{to.toLocaleDateString()}}
+          </h5>
+        </ion-item>
+      </ion-col>
+    </ion-row>
     <ion-row justify-content-center>
-      <ion-col size="6" size-md="4" size-lg="3" *ngFor="let card of cards" >
-        <ion-item color="{{card.color}}" (click)="gotoDay(card.day)" >
+      <ion-col size="6" size-md="4" size-lg="3" *ngFor="let card of cards">
+        <ion-item color="{{card.color}}" (click)="gotoDay(card.day)">
           <ion-label>
             {{card.day}}
+            <hr>
+            <ul class="undone">
+              <li *ngFor="let task of card.tasks">{{task}}</li>
+            </ul>
+            <ul class="done" >
+                <li *ngFor="let task of card.done">{{task}}</li>
+            </ul>
           </ion-label>
+          <ion-icon class="tick" name="checkmark" *ngIf="!card.active"></ion-icon>
         </ion-item>
       </ion-col>
     </ion-row>
