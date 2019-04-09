@@ -15,3 +15,12 @@ h4 {
     max-width: 700px !important;
     margin: 0 !important;
 }
+
+ion-icon[slot=icon-only] {
+    font-size: 40px;
+}
+
+.slide_changer {
+    height: 95%;
+    width: 100%;
+}

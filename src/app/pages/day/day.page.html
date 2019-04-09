@@ -1,39 +1,77 @@
 <ion-header>
   <ion-toolbar color="tertiary">
-    <ion-title>{{day.toLocaleUpperCase()}}</ion-title>
+    <ion-title>{{dayData.day.toLocaleUpperCase()}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-    <h3>{{"Select the tasks for "+ day.toLocaleLowerCase()}}</h3>
-    <ion-slides #slides pager="true" [options]="slideOpts">
-      <ion-slide *ngFor="let role of roles" >
-        <ion-card class="role-card">
-          <ion-card-title>
-            <h1>{{role}}</h1>
-          </ion-card-title>
-          <ion-card-content>
-            Selected {{role}}
-          </ion-card-content>
-        </ion-card>
-      </ion-slide>
-    </ion-slides>
-    <ion-button (click)="slidePrev()" float-left><ion-icon name="arrow-round-back"></ion-icon></ion-button>
-    <ion-button (click)="slideNext()" float-right><ion-icon name="arrow-round-forward"></ion-icon></ion-button>
-    <ion-grid margin-top>
-      <ion-row justify-content-center>
-        <ion-col size="12" size-lg="5" size-md="5">
-          <h4>Un-Assigned Tasks</h4>
-          <ion-item *ngFor="let task of tasks" color="light" margin-bottom>
-            <ion-label>{{task}}</ion-label>
-          </ion-item>
-        </ion-col>
-        <ion-col size="12" size-lg="5" size-md="5" offset="0" offset-lg="1" offset-md="1">
-          <h4>Assigned Tasks</h4>
-          <ion-item *ngFor="let task of tasks" color="light" margin-bottom>
-            <ion-label>{{task}}</ion-label>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+  <h3 *ngIf="!(day === 'Un-assigned')">{{"Select the tasks for "+ dayData.day.toLocaleLowerCase()}}</h3>
+  <h3 *ngIf="(day === 'Un-assigned')">Un-assigned tasks</h3>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col size="1" *ngIf="!mobileDevice" >
+        <ion-button fill="none" class="slide_changer" float-right (click)="slidePrev()">
+          <ion-icon slot="icon-only" color="medium" name="arrow-round-back"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="12" size-lg="6" size-md="6">
+        <ion-slides #slides pager="true" [options]="slideOpts">
+          <ion-slide *ngFor="let role of roles">
+            <ion-card class="role-card" color="light">
+              <ion-card-subtitle>
+                <ion-button float-right fill="none" color="medium" (click)="addRole()" >
+                  <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+                </ion-button>
+              </ion-card-subtitle>
+              <ion-card-title>
+                <h1>{{role.name}}</h1>
+              </ion-card-title>
+              <ion-card-content>
+                Selected {{role.name}}
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+      <ion-col size="1" *ngIf="!mobileDevice">
+        <ion-button fill="none" class="slide_changer" float-left (click)="slideNext()">
+          <ion-icon slot="icon-only" color="medium" name="arrow-round-forward"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid margin-top>
+    <ion-row justify-content-center>
+      <ion-col size="12" size-lg="4" size-md="4">
+        <h4>Un-Assigned Tasks</h4>
+        <div dragula="bag" [(dragulaModel)]="unassigned">
+        <ion-item *ngFor="let task of unassigned" color="light" margin-bottom>
+          <ion-label>{{task}}</ion-label>
+        </ion-item>
+      </div>
+      </ion-col>
+      <ion-col *ngIf="!(day === 'Un-assigned')" size="12" size-lg="4" size-md="4">
+        <h4>Assigned Tasks</h4>
+        <div dragula="bag" [(dragulaModel)]="dayData.tasks">
+        <ion-item *ngFor="let task of dayData.tasks" color="primary" margin-bottom>
+          <ion-label>{{task}}</ion-label>
+        </ion-item>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="!(day === 'Un-assigned')" size="12" size-lg="4" size-md="4">
+        <h4>Done Tasks</h4>
+        <div dragula="bag" [(dragulaModel)]="dayData.done">
+        <ion-item *ngFor="let task of dayData.done" color="success" margin-bottom>
+        
+          <ion-label>{{task}}</ion-label>
+        </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addtask()" >
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
