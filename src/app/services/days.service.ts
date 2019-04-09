@@ -1,5 +1,6 @@
 import { Day } from './../models/day';
 import { Injectable } from '@angular/core';
+import { Task } from '../models/task';
 
 @Injectable({
   providedIn: 'root'
@@ -10,57 +11,56 @@ export class DaysService {
     day: 'Sunday',
     color: 'medium',
     active: true,
-    tasks: ['task 1', 'task 2', 'task 3'],
-    done: ['task 4', 'task 5']
+    tasks: [new Task('task 1', 'Sunday'), new Task('task 2', 'Sunday'), new Task('task 3', 'Sunday'), new Task('task 4', 'Sunday')],
+
   };
   private monday: Day = {
     day: 'Monday',
     color: 'primary',
     active: true,
-    tasks: ['task 1', 'task 2', 'task 3'],
-    done: ['task 4', 'task 5']
+    tasks: [new Task('task 1', 'Monday'), new Task('task 2', 'Monday'), new Task('task 3', 'Monday'), new Task('task 4', 'Monday')],
   };
   private tuesday: Day = {
     day: 'Tuesday',
     color: 'secondary',
     active: true,
-    tasks: ['task 1', 'task 2', 'task 3'],
-    done: ['task 4', 'task 5']
+    tasks: [new Task('task 1', 'Tuesday'), new Task('task 2', 'Tuesday'), new Task('task 3', 'Tuesday'), new Task('task 4', 'Tuesday')],
+
   };
   private wednesday: Day = {
     day: 'Wednesday',
     color: 'tertiary',
     active: true,
-    tasks: ['task 1', 'task 2', 'task 3'],
-    done: ['task 4', 'task 5']
+    tasks: [new Task('task 1', 'Wednesday'), new Task('task 2', 'Wednesday'), new Task('task 3', 'Wednesday'), new Task('task 4', 'Wednesday')],
+
   };
   private thursday: Day = {
     day: 'Thursday',
     color: 'danger',
     active: true,
-    tasks: ['task 1', 'task 2', 'task 3'],
-    done: ['task 4', 'task 5']
+    tasks: [new Task('task 1', 'Thursday'), new Task('task 2', 'Thursday'), new Task('task 3', 'Thursday'), new Task('task 4', 'Thursday')],
+
   };
   private friday: Day = {
     day: 'Friday',
     color: 'warning',
     active: true,
-    tasks: ['task 1', 'task 2', 'task 3'],
-    done: ['task 4', 'task 5']
+    tasks: [new Task('task 1', 'Friday'), new Task('task 2', 'Friday'), new Task('task 3', 'Friday'), new Task('task 4', 'Friday')],
+
   };
   private saturday: Day = {
     day: 'Saturday',
     color: 'success',
     active: true,
-    tasks: ['task 1', 'task 2', 'task 3'],
-    done: ['task 4', 'task 5']
+    tasks: [new Task('task 1', 'Saturday'), new Task('task 2', 'Saturday'), new Task('task 3', 'Saturday'), new Task('task 4', 'Saturday')],
+
   };
   private unassigned: Day = {
     day: 'Un-assigned',
     color: 'dark',
     active: true,
-    tasks: ['task 1', 'task 2', 'task 3'],
-    done: ['task 4', 'task 5']
+    tasks: [new Task('task 1', 'Un-assigned'), new Task('task 2', 'Un-assigned'), new Task('task 3', 'Un-assigned'), new Task('task 4', 'Un-assigned')],
+
   };
 
   public getSunday(): Day {
@@ -142,7 +142,7 @@ export class DaysService {
   }
 
   public getAllDays(): Day[] {
-    let days: Day[] = [];
+    const days: Day[] = [];
     days.push(this.sunday);
     days.push(this.monday);
     days.push(this.tuesday);

@@ -24,3 +24,9 @@ ion-icon[slot=icon-only] {
     height: 95%;
     width: 100%;
 }
+
+ion-icon[name=more]{
+    transform: rotate(90deg);
+    font-size: 26px;
+    cursor: pointer;
+}
