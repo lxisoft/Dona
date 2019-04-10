@@ -41,7 +41,8 @@
   }
 
   .modal-create .modal-wrapper {
-    height: 35%;
+    height: auto;
+    min-height: 35%;
     // top: 80%;
     position: absolute; 
     display: block;  

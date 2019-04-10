@@ -1,22 +1,28 @@
 <ion-header>
     <ion-toolbar color="tertiary">
-      <ion-title text-center>Create Tasks for {{day.day}}</ion-title>
+        <ion-title text-center>Create Tasks for {{day.day}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismissModal(true)"><ion-icon name="close" slot="icon-only"></ion-icon></ion-button>
+        </ion-buttons>
     </ion-toolbar>
-  </ion-header>
+</ion-header>
 
-  <ion-content>
+<ion-content>
     <ion-grid>
         <ion-row justify-content-center>
             <ion-col size="8">
+                <ion-item *ngFor="let task of tasks" >
+                    <ion-input [(ngModel)]="task.detail"></ion-input>
+                </ion-item>
                 <ion-item>
-                    <ion-label position="floating">Task name</ion-label>
-                    <ion-input [(ngModel)]="task.detail" ></ion-input>
+                    <ion-input [(ngModel)]="task.detail" [placeholder]="placeholder"></ion-input>
+                    <ion-button fill="none" (click)="addTask()"><ion-icon color="medium" slot="icon-only" name="add-circle-outline"></ion-icon></ion-button>
                 </ion-item>
                 <!-- <hr> -->
                 <br>
                 <br>
-                <ion-button expand="block" (click)="addTask()" >
-                    Create
+                <ion-button expand="block" (click)="dismissModal(false)" >
+                    Done
                 </ion-button>
             </ion-col>
         </ion-row>
