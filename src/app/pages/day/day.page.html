@@ -47,6 +47,7 @@
         <div dragula="bag" [(dragulaModel)]="unassigned">
           <ion-item *ngFor="let task of unassigned" color="light" margin-bottom>
             <ion-label>{{ task.detail }}</ion-label>
+            <ion-icon name="more" slot="end" (click)="presentActionSheet2(task)"></ion-icon>
           </ion-item>
         </div>
       </ion-col>
