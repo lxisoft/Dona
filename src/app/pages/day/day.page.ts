@@ -113,7 +113,7 @@ export class DayPage implements OnInit {
         handler: () => {
           console.log('Delete clicked');
           console.log(this.dayData.tasks.length);
-          this.dayData.tasks.slice( this.dayData.tasks.indexOf(task), 1);
+          this.dayData.tasks.splice( this.dayData.tasks.indexOf(task), 1);
           console.log(this.dayData.tasks.length);
         }
       }, {
@@ -121,12 +121,51 @@ export class DayPage implements OnInit {
         icon: 'checkmark',
         handler: () => {
           console.log('Done clicked');
+          task.status = 'done';
         }
       }, {
         text: 'un assigned',
         icon: 'log-out',
         handler: () => {
-          console.log('Play clicked');
+          if (task.status.toString() === 'pending') {
+          console.log('un assigned clicked');
+          this.dayData.tasks.splice( this.dayData.tasks.indexOf(task), 1);
+          this.unassigned.push(task);
+        }
+      }
+      },
+      {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  async presentActionSheet2(task: Task) {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Albums',
+      buttons: [{
+        text: 'Delete',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          console.log('Delete clicked');
+          console.log(this.dayData.tasks.length);
+          this.unassigned.splice( this.unassigned.indexOf(task), 1);
+          console.log(this.dayData.tasks.length);
+        }
+      }, {
+        text: 'assigned to this day',
+        icon: 'checkmark',
+        handler: () => {
+          console.log('assigned to this day clicked');
+          this.unassigned.splice( this.unassigned.indexOf(task), 1);
+          this.dayData.tasks.push(task);
         }
       },
       {
