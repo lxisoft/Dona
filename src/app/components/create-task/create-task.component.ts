@@ -1,3 +1,4 @@
+import { Task } from './../../models/task';
 import { Day } from './../../models/day';
 import { DaysService } from './../../services/days.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -10,14 +11,19 @@ import { Component, OnInit, Input } from '@angular/core';
 export class CreateTaskComponent implements OnInit {
   @Input()
   day: Day;
-  task: String;
-  constructor() { }
+  tasks: Task[] = [];
+  task: Task;
+  constructor() {
+   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.task = new Task('', this.day.day);
+  }
 
   addTask() {
-    this.day.tasks.push(this.task);
-    this.task = null;
+    this.tasks.push(this.task);
+    this.day.tasks.push(this.tasks[this.tasks.length - 1]);
+    this.task = new Task('', this.day.day);
   }
 
 }

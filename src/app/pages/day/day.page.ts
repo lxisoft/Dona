@@ -1,9 +1,10 @@
+import { Task } from './../../models/task';
 import { CreateTaskComponent } from './../../components/create-task/create-task.component';
 import { CreateRoleComponent } from './../../components/create-role/create-role.component';
 import { Role } from 'src/app/models/role';
 import { Day } from './../../models/day';
 import { DaysService } from './../../services/days.service';
-import { IonSlides, ModalController, ToastController } from '@ionic/angular';
+import { IonSlides, ModalController, ToastController, ActionSheetController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RoleService } from 'src/app/services/role.service';
@@ -20,7 +21,7 @@ export class DayPage implements OnInit {
   @ViewChild('slides') slides: IonSlides;
   dayData: Day;
   roles: Role[];
-  unassigned: String[];
+  unassigned: Task[];
   slideOpts = {
     effect: 'flip'
   };
@@ -30,7 +31,8 @@ export class DayPage implements OnInit {
     private dayService: DaysService,
     private roleService: RoleService,
     private dragulaService: DragulaService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private actionSheetController: ActionSheetController
   ) {}
 
   ngOnInit() {
@@ -100,4 +102,43 @@ export class DayPage implements OnInit {
     });
     return await modal.present();
   }
+
+  async presentActionSheet(task: Task) {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Albums',
+      buttons: [{
+        text: 'Delete',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          console.log('Delete clicked');
+          console.log(this.dayData.tasks.length);
+          this.dayData.tasks.slice( this.dayData.tasks.indexOf(task), 1);
+          console.log(this.dayData.tasks.length);
+        }
+      }, {
+        text: 'done',
+        icon: 'checkmark',
+        handler: () => {
+          console.log('Done clicked');
+        }
+      }, {
+        text: 'un assigned',
+        icon: 'log-out',
+        handler: () => {
+          console.log('Play clicked');
+        }
+      },
+      {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
 }
+
