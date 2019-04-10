@@ -9,23 +9,23 @@
     <ion-row>
       <ion-col size="6">
         <ion-item>
-          <h5>
+          <ion-label>
             From: {{from.getDate() + '/' + (from.getMonth()+1) + '/' + from.getFullYear()}}
-          </h5>
+          </ion-label>
         </ion-item>
       </ion-col>
       <ion-col size="6">
         <ion-item>
-          <h5>
+          <ion-label>
             To: {{to.getDate() + '/' + (to.getMonth()+1) + '/' + to.getFullYear()}}
-          </h5>
+          </ion-label>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row justify-content-center>
       <ion-col size="6" size-md="4" size-lg="3" *ngFor="let card of cards">
         <ion-item color="{{card.color}}" (click)="gotoDay(card.day)" style="display: flex; align-items: center;">
-          <ion-label text-center>
+          <ion-label class="card-text" text-center>
             {{card.day}}
           </ion-label>
           <ion-icon class="tick" name="checkmark" *ngIf="!card.active"></ion-icon>

@@ -45,7 +45,7 @@ export class DayPage implements OnInit {
     .subscribe(({ name, el, source }) => {
       // el.setAttribute('color', 'primary');
     });
- 
+
     this.dragulaService.removeModel('bag')
     .subscribe(({ item }) => {
       this.toastController.create({
@@ -53,12 +53,12 @@ export class DayPage implements OnInit {
         duration: 2000
       }).then(toast => toast.present());
     });
- 
+
     this.dragulaService.dropModel('bag')
       .subscribe(({ item }) => {
         item['color'] = 'success';
       });
- 
+
     this.dragulaService.createGroup('bag', {
       revertOnSpill: true
     });
@@ -95,7 +95,8 @@ export class DayPage implements OnInit {
   async addtask() {
     const modal = await this.modalController.create({
       component: CreateTaskComponent,
-      componentProps: {'day': this.dayData}
+      componentProps: {'day': this.dayData},
+      cssClass: 'modal-create'
     });
     return await modal.present();
   }
