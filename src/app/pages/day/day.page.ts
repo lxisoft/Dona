@@ -97,7 +97,8 @@ export class DayPage implements OnInit {
   async addtask() {
     const modal = await this.modalController.create({
       component: CreateTaskComponent,
-      componentProps: {'day': this.dayData}
+      componentProps: {'day': this.dayData},
+      cssClass: 'modal-create'
     });
     return await modal.present();
   }

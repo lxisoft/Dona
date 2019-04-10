@@ -39,3 +39,10 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
     filter: alpha(opacity=20);
   }
+
+  .modal-create .modal-wrapper {
+    height: 35%;
+    // top: 80%;
+    position: absolute; 
+    display: block;  
+ }

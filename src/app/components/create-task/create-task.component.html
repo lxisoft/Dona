@@ -1,5 +1,10 @@
-<ion-content>
-  <h2 text-center>Create Tasks for {{day.day}}</h2>
+<ion-header>
+    <ion-toolbar color="tertiary">
+      <ion-title text-center>Create Tasks for {{day.day}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
     <ion-grid>
         <ion-row justify-content-center>
             <ion-col size="8">
@@ -7,6 +12,9 @@
                     <ion-label position="floating">Task name</ion-label>
                     <ion-input [(ngModel)]="task.detail" ></ion-input>
                 </ion-item>
+                <!-- <hr> -->
+                <br>
+                <br>
                 <ion-button expand="block" (click)="addTask()" >
                     Create
                 </ion-button>
