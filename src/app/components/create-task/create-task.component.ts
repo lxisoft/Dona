@@ -29,6 +29,7 @@ export class CreateTaskComponent implements OnInit {
         this.tasks.push(this.task);
         this.day.tasks.push(this.tasks[this.tasks.length - 1]);
         this.task = new Task('', this.day.day);
+        this.placeholder = 'Create new task';
         return true;
       } else {
         this.task.detail = '';
@@ -44,5 +45,4 @@ export class CreateTaskComponent implements OnInit {
       this.modalController.dismiss();
     }
   }
-
 }
