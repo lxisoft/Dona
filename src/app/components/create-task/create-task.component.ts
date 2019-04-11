@@ -14,12 +14,18 @@ export class CreateTaskComponent implements OnInit {
   day: Day;
   tasks: Task[] = [];
   task: Task;
-  placeholder= 'Create new task';
+  placeholder = 'Create new task';
   constructor(private modalController: ModalController) {
    }
 
   ngOnInit() {
     this.task = new Task('', this.day.day);
+  }
+
+  eventHandler(keyCode) {
+    if (keyCode === 13) {
+      this.addTask();
+    }
   }
 
   addTask(): boolean {

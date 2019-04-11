@@ -7,7 +7,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<div class="inner-content">
     <ion-grid>
         <ion-row justify-content-center>
             <ion-col size="8">
@@ -15,7 +15,7 @@
                     <ion-input [(ngModel)]="task.detail"></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-input [(ngModel)]="task.detail" [placeholder]="placeholder"></ion-input>
+                    <ion-input [(ngModel)]="task.detail" (keypress)="eventHandler($event.keyCode)" [placeholder]="placeholder"></ion-input>
                     <ion-button fill="none" (click)="addTask()"><ion-icon color="medium" slot="icon-only" name="add-circle-outline"></ion-icon></ion-button>
                 </ion-item>
                 <!-- <hr> -->
@@ -27,4 +27,4 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-</ion-content>
+</div>
