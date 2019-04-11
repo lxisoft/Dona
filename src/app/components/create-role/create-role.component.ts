@@ -29,7 +29,6 @@ export class CreateRoleComponent implements OnInit {
     if (!(this.role.name === null || this.role.name === undefined || this.role.name === '')) {
       if (this.role.name.match(regex) !== null) {
         this.roles.push(this.role);
-        this.roleService.addRole(this.role);
         this.role = new Role();
         this.placeholder = 'Add a role';
         return true;
@@ -44,6 +43,9 @@ export class CreateRoleComponent implements OnInit {
 
   dismissModal(force: boolean) {
     if (force || this.createRole()) {
+      if (this.roles.length >= 0) {
+        this.roleService.addAllRoles(this.roles);
+      }
       this.modalController.dismiss();
     }
   }

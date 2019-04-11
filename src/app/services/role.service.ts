@@ -16,4 +16,10 @@ export class RoleService {
   addRole(role: Role) {
     this.roles.push(role);
   }
+
+  addAllRoles(roles: Role[]) {
+    roles.forEach(role => {
+      this.roles.push(role);
+    });
+  }
 }
