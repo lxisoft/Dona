@@ -21,7 +21,7 @@
           <ion-slide *ngFor="let role of roles">
             <ion-card class="role-card" color="light">
               <ion-card-subtitle>
-                <ion-button float-right fill="none" color="medium" (click)="addRole()">
+                <ion-button float-right fill="none" color="medium" *ngIf="dayData.active" (click)="addRole()">
                   <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
                 </ion-button>
               </ion-card-subtitle>
@@ -44,30 +44,54 @@
     <ion-row justify-content-center>
       <ion-col size="12" size-lg="4" size-md="4">
         <h4>Un-Assigned Tasks</h4>
+        <div *ngIf="dayData.active">
         <div dragula="bag" [(dragulaModel)]="unassigned">
           <ion-item *ngFor="let task of unassigned" color="light" margin-bottom>
             <ion-label>{{ task.detail }}</ion-label>
-            <ion-icon name="more" slot="end" (click)="presentActionSheet2(task)"></ion-icon>
+            <ion-icon name="more" slot="end" *ngIf="dayData.active" (click)="presentActionSheet2(task)"></ion-icon>
           </ion-item>
         </div>
+      </div>
+
+      <div *ngIf="!dayData.active">
+          <ion-item *ngFor="let task of unassigned" color="light" margin-bottom>
+            <ion-label>{{ task.detail }}</ion-label>
+            <ion-icon name="more" slot="end" *ngIf="dayData.active" (click)="presentActionSheet2(task)"></ion-icon>
+          </ion-item>
+      </div>
+
       </ion-col>
       <ion-col *ngIf="!(day === 'Un-assigned')" size="12" size-lg="4" size-md="4">
         <h4>Assigned Tasks</h4>
+        <div *ngIf="dayData.active">
         <div dragula="bag" [(dragulaModel)]="dayData.tasks" *ngFor="let task of dayData.tasks">
-          <ion-item *ngIf="!(task.status === 'pending')" color="primary" margin-bottom>
+          <ion-item *ngIf="!(task.status === 'pending')" color="success" margin-bottom>
             <ion-label>{{ task.detail }}</ion-label>
-            <ion-icon name="more" slot="end" (click)="presentActionSheet(task)"></ion-icon>
+            <ion-icon name="more" slot="end" *ngIf="dayData.active" (click)="presentActionSheet(task)"></ion-icon>
           </ion-item>
-          <ion-item class="dropdown" *ngIf="!(task.status === 'done')" color="success" margin-bottom> 
+          <ion-item class="dropdown" *ngIf="!(task.status === 'done')" color="primary" margin-bottom> 
             <ion-label>{{ task.detail }}</ion-label>
-            <ion-icon name="more" slot="end" (click)="presentActionSheet(task)"></ion-icon>
+            <ion-icon name="more" slot="end" *ngIf="dayData.active" (click)="presentActionSheet(task)"></ion-icon>
           </ion-item>
         </div>
+      </div>
+        <div *ngIf="!dayData.active">
+        <div  *ngFor="let task of dayData.tasks" >
+          <ion-item *ngIf="!(task.status === 'pending')" color="success" margin-bottom>
+            <ion-label>{{ task.detail }}</ion-label>
+            <ion-icon name="more" slot="end" *ngIf="dayData.active" (click)="presentActionSheet(task)"></ion-icon>
+          </ion-item>
+          <ion-item class="dropdown" *ngIf="!(task.status === 'done')" color="primary" margin-bottom> 
+            <ion-label>{{ task.detail }}</ion-label>
+            <ion-icon name="more" slot="end" *ngIf="dayData.active" (click)="presentActionSheet(task)"></ion-icon>
+          </ion-item>
+        </div>
+      </div>
       </ion-col>
     </ion-row>
   </ion-grid>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addtask()">
+    <ion-fab-button *ngIf="dayData.active" (click)="addtask()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
