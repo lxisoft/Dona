@@ -105,7 +105,7 @@ export class DayPage implements OnInit {
 
   async presentActionSheet(task: Task) {
     const actionSheet = await this.actionSheetController.create({
-      header: 'Albums',
+      header: 'options',
       buttons: [{
         text: 'Delete',
         role: 'destructive',
@@ -148,7 +148,7 @@ export class DayPage implements OnInit {
 
   async presentActionSheet2(task: Task) {
     const actionSheet = await this.actionSheetController.create({
-      header: 'Albums',
+      header: 'options',
       buttons: [{
         text: 'Delete',
         role: 'destructive',
