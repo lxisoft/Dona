@@ -14,12 +14,18 @@ export class CreateTaskComponent implements OnInit {
   day: Day;
   tasks: Task[] = [];
   task: Task;
-  placeholder= 'Create new task';
-  constructor(private modalController: ModalController) {
+  placeholder = 'Create new task';
+  constructor(private modalController: ModalController, private daysService:  DaysService) {
    }
 
   ngOnInit() {
     this.task = new Task('', this.day.day);
+  }
+
+  eventHandler(keyCode) {
+    if (keyCode === 13) {
+      this.addTask();
+    }
   }
 
   addTask(): boolean {
@@ -27,7 +33,6 @@ export class CreateTaskComponent implements OnInit {
     if (!(this.task.detail === null || this.task.detail === undefined || this.task.detail === '')) {
       if (this.task.detail.match(regex) !== null) {
         this.tasks.push(this.task);
-        this.day.tasks.push(this.tasks[this.tasks.length - 1]);
         this.task = new Task('', this.day.day);
         this.placeholder = 'Create new task';
         return true;
@@ -42,7 +47,14 @@ export class CreateTaskComponent implements OnInit {
 
   dismissModal(force: boolean) {
     if (force || this.addTask()) {
+      if (this.tasks.length >= 0) {
+        this.tasks.forEach(task => {
+          this.day.tasks.push(task);
+        });
+        this.daysService.setDay(this.day);
+      }
       this.modalController.dismiss();
     }
   }
+  
 }

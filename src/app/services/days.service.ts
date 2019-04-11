@@ -109,6 +109,20 @@ export class DaysService {
     }
   }
 
+  public setDay(day: Day) {
+    switch (day.day.toLowerCase()) {
+      case 'sunday': this.setSunday(day); return;
+      case 'monday': this.setMonday(day); return;
+      case 'tuesday': this.setTuesday(day); return;
+      case 'wednesday': this.setWednesday(day); return;
+      case 'thursday': this.setThursday(day); return;
+      case 'friday': this.setFriday(day); return;
+      case 'saturday': this.setSaturday(day); return;
+      case 'un-assigned': this.setUnassigned(day); return;
+      default: return null;
+    }
+  }
+
   public setSunday(value: Day) {
     this.sunday = value;
   }
