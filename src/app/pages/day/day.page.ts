@@ -92,7 +92,8 @@ export class DayPage implements OnInit {
 
   async addRole() {
     const modal = await this.modalController.create({
-      component: CreateRoleComponent
+      component: CreateRoleComponent,
+      cssClass: 'auto-height'
     });
     return await modal.present();
   }
