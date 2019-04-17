@@ -20,7 +20,89 @@ import { DragulaService } from 'ng2-dragula';
   templateUrl: './day.page.html',
   styleUrls: ['./day.page.scss']
 })
-export class DayPage implements OnInit,OnDestroy {
+export class DayPage implements OnInit {
+  task: Task = new Task('temp', 'temp');
+  unassignedDay: any [] = [
+    {text : 'Delete',
+    role : 'destructive',
+    icon: 'trash',
+    handler: () => {
+      console.log('Delete clicked');
+      console.log(this.dayData.tasks.length);
+      this.dayData.tasks.splice( this.dayData.tasks.indexOf(this.task), 1);
+      console.log(this.dayData.tasks.length);
+    }
+  }
+  ];
+  assignedDoneButtons: any [] = [
+    {text : 'Delete',
+    role : 'destructive',
+    icon: 'trash',
+    handler: () => {
+      console.log('Delete clicked');
+      console.log(this.dayData.tasks.length);
+      this.dayData.tasks.splice( this.dayData.tasks.indexOf(this.task), 1);
+      console.log(this.dayData.tasks.length);
+    }},
+    {
+      text: 'un done',
+      icon: 'close',
+      handler: () => {
+        console.log('Done clicked');
+        this.task.status = 'pending';
+      }
+    }
+    ];
+  assignedButtons: any [] = [{
+    text: 'Delete',
+    role: 'destructive',
+    icon: 'trash',
+    handler: () => {
+      console.log('Delete clicked');
+      console.log(this.dayData.tasks.length);
+      this.dayData.tasks.splice( this.dayData.tasks.indexOf(this.task), 1);
+      console.log(this.dayData.tasks.length);
+    }
+  }, {
+    text: 'done',
+    icon: 'checkmark',
+    handler: () => {
+      console.log('Done clicked');
+      this.task.status = 'done';
+    }
+  },
+  {
+    text: 'un-assigned',
+    icon: 'log-out',
+    handler: () => {
+      console.log('un-assigned to this day clicked');
+      this.dayData.tasks.splice( this.dayData.tasks.indexOf(this.task), 1);
+      this.task.day = 'Un-assigned';
+      this.unassigned.push(this.task);
+    }
+  }
+  ];
+  unassignedButtons: any[] = [{
+    text: 'Delete',
+    role: 'destructive',
+    icon: 'trash',
+    handler: () => {
+      console.log('Delete clicked');
+      console.log(this.dayData.tasks.length);
+      this.unassigned.splice( this.unassigned.indexOf(this.task), 1);
+      console.log(this.dayData.tasks.length);
+    }
+  }, {
+    text: 'assigned to this day',
+    icon: 'checkmark',
+    handler: () => {
+      console.log('assigned to this day clicked');
+      this.unassigned.splice( this.unassigned.indexOf(this.task), 1);
+     this.task.day = this.dayData.day;
+      this.dayData.tasks.push(this.task);
+    }
+  }
+];
   day: string;
   mobileDevice: Boolean = false;
   @ViewChild('slides') slides: IonSlides;
@@ -114,55 +196,39 @@ export class DayPage implements OnInit,OnDestroy {
   }
 
   async presentActionSheet(task: Task) {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'options',
-      buttons: [{
-        text: 'Delete',
-        role: 'destructive',
-        icon: 'trash',
-        handler: () => {
-          console.log('Delete clicked');
-          console.log(this.dayData.tasks.length);
-          this.dayData.tasks.splice( this.dayData.tasks.indexOf(task), 1);
-          console.log(this.dayData.tasks.length);
-        }
-      }, {
-        text: 'done',
-        icon: 'checkmark',
-        handler: () => {
-          console.log('Done clicked');
-          task.status = 'done';
-        }
-      }
-      ]
-    });
-    await actionSheet.present();
-  }
+    this.task = task;
+    if (this.dayData.day === 'Un-assigned') {
+      const actionSheet = await this.actionSheetController.create({
+        header: 'options',
+        buttons: this.unassignedDay
+      });
+      await actionSheet.present();
+    } else {
+      if (this.unassigned.includes(task)) {
+      const actionSheet = await this.actionSheetController.create({
+        header: 'options',
+        buttons: this.unassignedButtons
+      });
+      await actionSheet.present();
+    } else {
+      if (task.status === 'pending') {
+      const actionSheet = await this.actionSheetController.create({
+        header: 'options',
+        buttons: this.assignedButtons
 
-  async presentActionSheet2(task: Task) {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'options',
-      buttons: [{
-        text: 'Delete',
-        role: 'destructive',
-        icon: 'trash',
-        handler: () => {
-          console.log('Delete clicked');
-          console.log(this.dayData.tasks.length);
-          this.unassigned.splice( this.unassigned.indexOf(task), 1);
-          console.log(this.dayData.tasks.length);
-        }
-      }, {
-        text: 'assigned to this day',
-        icon: 'checkmark',
-        handler: () => {
-          console.log('assigned to this day clicked');
-          this.unassigned.splice( this.unassigned.indexOf(task), 1);
-          this.dayData.tasks.push(task);
-        }
+      });
+      await actionSheet.present();
+
+      } else {
+        const actionSheet = await this.actionSheetController.create({
+          header: 'options',
+          buttons: this.assignedDoneButtons
+
+        });
+        await actionSheet.present();
       }
-    ]
-    });
-    await actionSheet.present();
+
+    }
+  }
   }
 }
