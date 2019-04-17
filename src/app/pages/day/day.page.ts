@@ -10,7 +10,7 @@ import {
   ToastController,
   ActionSheetController
 } from '@ionic/angular';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RoleService } from 'src/app/services/role.service';
 import { DragulaService } from 'ng2-dragula';
@@ -20,7 +20,7 @@ import { DragulaService } from 'ng2-dragula';
   templateUrl: './day.page.html',
   styleUrls: ['./day.page.scss']
 })
-export class DayPage implements OnInit {
+export class DayPage implements OnInit,OnDestroy {
   day: string;
   mobileDevice: Boolean = false;
   @ViewChild('slides') slides: IonSlides;
@@ -68,6 +68,10 @@ export class DayPage implements OnInit {
     this.dragulaService.createGroup('bag', {
       revertOnSpill: true
     });
+  }
+
+  ngOnDestroy(): void {
+    this.dragulaService.destroy('bag');
   }
 
   slidePrev() {

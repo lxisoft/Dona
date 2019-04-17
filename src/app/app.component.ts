@@ -1,3 +1,4 @@
+import { DatabaseService } from './services/database.service';
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
@@ -12,13 +13,17 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private database: DatabaseService
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      if (!this.platform.is('desktop')) {
+        this.database.createDatabase();
+      }
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
